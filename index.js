@@ -8,6 +8,9 @@ const url = "mongodb://localhost:27017";
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
+
+app.set('PORT',process.env.PORT)
+
 app.use(cors());
 app.use(bodyParser.json());
 function authenticate(req, res, next) {
@@ -142,6 +145,6 @@ app.post("/login", function(req, res) {
   });
 });
 
-app.listen(3000,function(){
-  console.log(3000)
+app.listen(app.get('PORT'),function(){
+  console.log(app.get('PORT'))
 });
