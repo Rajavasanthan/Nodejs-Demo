@@ -9,7 +9,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 
-app.set('PORT',process.env.PORT)
+app.set('PORT',process.env.PORT | 3001)
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -41,8 +41,8 @@ app.post("/saveData", function(req, res) {
 app.post("/product", function(req, res) {
   mongoClient.connect(url, function(err, client) {
     if (err) throw err;
-    // var db = client.db("exampleDB");
-    client.collection("product").insertOne(req.body, function(err, data) {
+    var db = client.db("node-demo-db");
+    db.collection("product").insertOne(req.body, function(err, data) {
       if (err) throw err;
       res.json({ message: "Success" });
     });
@@ -53,8 +53,8 @@ app.post("/product", function(req, res) {
 app.get("/product", function(req, res) {
   mongoClient.connect(url, function(err, client) {
     if (err) throw err;
-    // var db = client.db("exampleDB");
-    var userCursor = client
+    var db = client.db("node-demo-db");
+    var userCursor = db
       .collection("product")
       .find()
       .toArray();
