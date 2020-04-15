@@ -50,7 +50,7 @@ app.post("/product", function(req, res) {
   });
 });
 
-app.get("/product", authenticate, function(req, res) {
+app.get("/product", function(req, res) {
   mongoClient.connect(url, function(err, client) {
     if (err) throw err;
     var db = client.db("exampleDB");
