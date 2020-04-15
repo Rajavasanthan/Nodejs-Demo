@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongodb = require("mongodb");
 const mongoClient = mongodb.MongoClient;
-const url = "mongodb://vasanth:vasanth123@ds241288.mlab.com:41288/node-demo-db";
+const url = "mongodb://vasanth:vasanth123@ds241288.mlab.com:41288";
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
@@ -41,7 +41,7 @@ app.post("/saveData", function(req, res) {
 app.post("/product", function(req, res) {
   mongoClient.connect(url, function(err, client) {
     if (err) throw err;
-    var db = client.db("exampleDB");
+    var db = client.db("node-demo-db");
     db.collection("product").insertOne(req.body, function(err, data) {
       if (err) throw err;
       res.json({ message: "Success" });
@@ -53,7 +53,7 @@ app.post("/product", function(req, res) {
 app.get("/product", function(req, res) {
   mongoClient.connect(url, function(err, client) {
     if (err) throw err;
-    var db = client.db("exampleDB");
+    var db = client.db("node-demo-db");
     var userCursor = db
       .collection("product")
       .find()
